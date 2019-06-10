@@ -22,7 +22,7 @@
 # Set to true if you do *NOT* want Magisk to mount
 # any files for you. Most modules would NOT want
 # to set this flag to true
-SKIPMOUNT=false
+SKIPMOUNT=true
 
 # Set to true if you need to load system.prop
 PROPFILE=false
