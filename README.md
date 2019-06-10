@@ -140,6 +140,8 @@ before its removal takes precedence over this concern.
   reconcile the messages here with the actual state of the device's recovery
   partition.
 
+* The module requires Magisk v19 or later.
+
 ## Warranty and Disclaimer
 
 This module is offered *as is* without warranty or support of any kind, either
@@ -165,7 +167,7 @@ on such a device. I would, however, be happy to receive patches.
 
 - Initial release.
 
-## Useful Links
+## Links
 
 * TWRP FAQ: [What is a data/media device?](https://twrp.me/faq/datamedia.html)
 

@@ -134,7 +134,11 @@ on_install() {
   # Extend/change the logic to whatever you want
   ui_print "- Extracting module files"
   unzip -o "$ZIPFILE" 'system/*' -d $MODPATH >&2
-  }
+
+  if [ ${MAGISK_VER%%.*} -lt 19 ]; then
+    abort 'This module requires Magisk v19 or later.'
+  fi
+}
 
 # Only some special files require specific permissions
 # This function will be called after on_install is done
