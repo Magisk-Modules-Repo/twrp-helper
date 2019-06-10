@@ -134,8 +134,30 @@ on_install() {
   # Extend/change the logic to whatever you want
   ui_print "- Extracting module files"
   unzip -o "$ZIPFILE" 'system/*' -d $MODPATH >&2
+  }
 
+# Only some special files require specific permissions
+# This function will be called after on_install is done
+# The default permissions should be good enough for most cases
+
+set_permissions() {
+  post_installation
+
+  # The following is the default rule, DO NOT remove
+  set_perm_recursive $MODPATH 0 0 0755 0644
+
+  # Here are some examples:
+  # set_perm_recursive  $MODPATH/system/lib       0     0       0755      0644
+  # set_perm  $MODPATH/system/bin/app_process32   0     2000    0755      u:object_r:zygote_exec:s0
+  # set_perm  $MODPATH/system/bin/dex2oat         0     2000    0755      u:object_r:dex2oat_exec:s0
+  # set_perm  $MODPATH/system/lib/libart.so       0     0       0644
+}
+
+# You can add more functions to assist your custom script code
+post_installation() {
+  ui_print "- Running post-installation"
   ui_print ""
+
   export BOOTMODE
   ( cd $MODPATH; ln service.sh uninstall.sh )
   /system/bin/sh $MODPATH/service.sh 2>&1
@@ -159,20 +181,3 @@ on_install() {
   ui_print "example, it will be dynamically patched."
   ui_print ""
 }
-
-# Only some special files require specific permissions
-# This function will be called after on_install is done
-# The default permissions should be good enough for most cases
-
-set_permissions() {
-  # The following is the default rule, DO NOT remove
-  set_perm_recursive $MODPATH 0 0 0755 0644
-
-  # Here are some examples:
-  # set_perm_recursive  $MODPATH/system/lib       0     0       0755      0644
-  # set_perm  $MODPATH/system/bin/app_process32   0     2000    0755      u:object_r:zygote_exec:s0
-  # set_perm  $MODPATH/system/bin/dex2oat         0     2000    0755      u:object_r:dex2oat_exec:s0
-  # set_perm  $MODPATH/system/lib/libart.so       0     0       0644
-}
-
-# You can add more functions to assist your custom script code
