@@ -78,7 +78,6 @@ fi
 count=0
 mb=/data/adb/magisk/magiskboot
 recovery=$(readlink $(find /dev/block/platform -type l -iname recovery))
-#recovery=/storage/9C33-6BBD/twrp-beyond2lte-3.3.1-2_ianmacd-magisk.img
 store=/storage/emulated/0/Download
 rd=ramdisk.cpio
 
@@ -101,9 +100,7 @@ cd $mydir || echo Failed to change from to $mydir. Continuing in $PWD... >&2
 
 trap 'rm -f recovery_dtbo kernel ramdisk.cpio strings twrp.img' EXIT
 
-if [ -v RECOVERY_FILE ]; then
-  recovery=$RECOVERY_FILE
-fi
+[ -v RECOVERY_FILE ] && recovery=$RECOVERY_FILE
 twrp=twrp.img
 echo Reading recovery image from $recovery... >&2
 cat $recovery > $twrp
@@ -145,10 +142,7 @@ $mb repack $twrp $new_twrp
 
 [ ! -f $new_twrp ] && abort 3 'Failed to pack new ramdisk.'
 
-if [ -v DEVNULL ]; then
-  recovery=/dev/null
-fi
-
+[ -v DEVNULL ] && recovery=/dev/null
 echo Writing new recovery image to $recovery... >&2
 dd if=$new_twrp of=$recovery bs=$(stat -c%s $new_twrp)
 
