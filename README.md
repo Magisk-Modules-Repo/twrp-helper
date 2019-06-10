@@ -91,7 +91,7 @@ impact on boot duration.
 ## Description
 
 Once you have a successfully patched TWRP recovery image, you can reboot to
-TWRP and make immediate use the augmented functionality.
+TWRP and make immediate use of the augmented functionality.
 
 Set your language to _English_ and select the **Backup** module from the main
 menu and you should now see **Data** annotated with **(incl. storage)**, where
@@ -99,15 +99,23 @@ formerly the text **(excl. storage)** would have appeared.
 
 Back-ups of **Data** will thus henceforth include **Internal Storage**
 (`/data/media`). Analogously, wiping **Data** will subsequently also wipe
-**Internal Storage**. This has one critical ramification: Since a restore
-operation is preceded by a wipe, any TWRP back-ups residing on **Internal
-Storage** will be **deleted** when you restore **Data**. If you are not
-careful, you could easily destroy the very back-up you are attempting to
-restore. You are strongly advised to back up only to an external SD card from
-this point forward.
+**Internal Storage**. This has two critical ramifications.
+
+Firstly, if you back up to **Internal Storage**, any back-up you make of
+**Data** will now include nested copies of all of your existing back-ups. This
+is probably not what you want and will quickly spiral out of control until all
+of the available storage space has been consumed.
+
+Secondly, since a restore operation is preceded by a wipe, any TWRP back-ups
+residing on **Internal Storage** will be **deleted** when you restore
+**Data**. If you are not careful, you could easily destroy the very back-up
+you are attempting to restore.
+
+For the above two reasons, you are strongly advised to back up only to an
+external SD card from this point forward.
 
 Note that a **Data** back-up made by a patched TWRP does **not** require a
-patched TWRP to restore it. Standard TWRP will **wipe** wipe `/data/media`
+patched TWRP to restore it. Standard TWRP will **not** wipe `/data/media`
 before restoring to it.
 
 ## Uninstallation
@@ -174,11 +182,13 @@ on such a device. I would, however, be happy to receive patches.
 * TWRP FAQ: [What is excluded from a TWRP
   backup?](https://twrp.me/faq/backupexclusions.html)
 
-* The long-standing [GitHub
+* The long-running (5+ years, in spite of closure) [GitHub
   issue](https://github.com/TeamWin/Team-Win-Recovery-Project/issues/276)
-  (since 2014) requesting that TWRP support the inclusion of `/data/media` in
-  **Data** back-ups.
+  requesting that TWRP support the inclusion of `/data/media` in **Data**
+  back-ups.
 
-* The
-  [rationale](https://github.com/TeamWin/Team-Win-Recovery-Project/issues/276#issuecomment-239172861)
+* [Rationale
+  1](https://github.com/TeamWin/Team-Win-Recovery-Project/issues/276#issuecomment-239172861)
+  and [rationale
+  2](https://github.com/TeamWin/Team-Win-Recovery-Project/issues/276#issuecomment-246113375)
   for TWRP's exclusion of `/data/media`.
